@@ -52,7 +52,7 @@ class ReconstructionProcessing(object):
     def getCropBoxFrame(self):
         transform = self.cube_vis.getChildFrame().transform
         pos, quat = transformUtils.poseFromTransform(transform)
-        print (pos,quat)
+        print((pos,quat))
 
 
 def createApp(globalsDict=None):

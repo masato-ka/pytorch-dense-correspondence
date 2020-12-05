@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/external/pytorch-segmentation-detection" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/external/pytorch-segmentation-detection/synchronized_batchnorm" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/external/pytorch-segmentation-detection/vision" vcs="Git" />
+  </component>
+</project>

@@ -81,7 +81,7 @@ def random_sample_from_masked_image(img_mask, num_samples):
     if num_nonzero == 0:
         empty_list = []
         return empty_list
-    rand_inds = random.sample(range(0,num_nonzero), num_samples)
+    rand_inds = random.sample(list(range(0,num_nonzero)), num_samples)
 
     sampled_idx_list = []
     for i, idx in enumerate(idx_tuple):
@@ -319,7 +319,7 @@ def create_non_correspondences(uv_b_matches, img_b_shape, num_non_matches_per_ma
         img_b_mask_flat = img_b_mask.view(-1,1).squeeze(1)
         mask_b_indices_flat = torch.nonzero(img_b_mask_flat)
         if len(mask_b_indices_flat) == 0:
-            print "warning, empty mask b"
+            print("warning, empty mask b")
             uv_b_non_matches = get_random_uv_b_non_matches()
         else:
             num_samples = num_matches*num_non_matches_per_match

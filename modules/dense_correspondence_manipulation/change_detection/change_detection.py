@@ -106,7 +106,7 @@ class ChangeDetection(object):
             self.cameraIntrinsics = cameraIntrinsics
 
         # set the views to use the camera intrinsics
-        for _, view in self.views.iteritems():
+        for _, view in self.views.items():
             director_utils.setCameraIntrinsics(view, self.cameraIntrinsics, lockViewSize=True)
 
         self.depthScanners = dict()
@@ -179,7 +179,7 @@ class ChangeDetection(object):
         Updates all the DepthScanner objects to make sure we are rendering
         against the current scene
         """
-        for _, scanner in self.depthScanners.iteritems():
+        for _, scanner in self.depthScanners.items():
             scanner.update()
 
     @staticmethod
@@ -209,7 +209,7 @@ class ChangeDetection(object):
                 CameraFrame is encoded as right-down-forward
         """
 
-        for _, view in self.views.iteritems():
+        for _, view in self.views.items():
             director_utils.setCameraTransform(view.camera(), cameraToWorld)
             view.forceRender()
 
@@ -361,7 +361,7 @@ class ChangeDetection(object):
 
         start_time = time.time()
 
-        print "saving cropped mesh"
+        print("saving cropped mesh")
         self.foreground_reconstruction.save_poly_data(fusion_mesh_foreground_file)
 
         # read in each image in the log
@@ -373,9 +373,9 @@ class ChangeDetection(object):
         logging_rate = 50
         counter = 0
 
-        for idx, value in camera_pose_data.pose_dict.iteritems():
+        for idx, value in camera_pose_data.pose_dict.items():
             if (counter % logging_rate) == 0:
-                print "Rendering mask for pose %d of %d" %(counter + 1, num_poses)
+                print("Rendering mask for pose %d of %d" %(counter + 1, num_poses))
 
             mask_image_filename = utils.getPaddedString(idx) + "_mask" + "." + img_file_extension
             mask_image_full_filename = os.path.join(output_dir, mask_image_filename)
@@ -405,7 +405,7 @@ class ChangeDetection(object):
 
         end_time = time.time()
 
-        print "rendering masks took %d seconds" %(end_time - start_time)
+        print("rendering masks took %d seconds" %(end_time - start_time))
 
     def render_depth_images(self, output_dir=None, rendered_images_dir=None):
         """
@@ -434,9 +434,9 @@ class ChangeDetection(object):
         logging_rate = 50
         counter = 0
 
-        for idx, value in camera_pose_data.pose_dict.iteritems():
+        for idx, value in camera_pose_data.pose_dict.items():
             if (counter % logging_rate) == 0:
-                print "Rendering depth image for pose %d of %d" % (counter + 1, num_poses)
+                print("Rendering depth image for pose %d of %d" % (counter + 1, num_poses))
 
 
             camera_to_world = self.foreground_reconstruction.get_camera_to_world(idx)
@@ -451,7 +451,7 @@ class ChangeDetection(object):
 
         end_time = time.time()
 
-        print "rendering depth images took %d seconds" % (end_time - start_time)
+        print("rendering depth images took %d seconds" % (end_time - start_time))
 
 
     @staticmethod
@@ -499,7 +499,7 @@ class ChangeDetection(object):
         if background_data_folder is None:
             background_data_folder = data_folder
 
-        print "background folder: ", background_data_folder
+        print("background folder: ", background_data_folder)
 
         background_reconstruction_placeholder = TSDFReconstruction.from_data_folder(background_data_folder, config=config, load_foreground_mesh=False)
 
@@ -589,19 +589,19 @@ class ChangeDetection(object):
 
     def testGetCameraTransforms(self):
         vis.updateFrame(vtk.vtkTransform(), "origin frame", view=self.views['background'])
-        for viewType, view in self.views.iteritems():
-            print "\n\nviewType: ", viewType
+        for viewType, view in self.views.items():
+            print("\n\nviewType: ", viewType)
             cameraTransform = director_utils.getCameraTransform(view.camera())
             pos, quat = transformUtils.poseFromTransform(cameraTransform)
-            print "pos: ", pos
-            print "quat: ", quat
+            print("pos: ", pos)
+            print("quat: ", quat)
 
 
             vis.updateFrame(cameraTransform, viewType + "_frame")
 
 
     def testSetCameraPose(self):
-        for viewType, view in self.views.iteritems():
+        for viewType, view in self.views.items():
             camera = view.camera()
             director_utils.setCameraTransform(camera, CAMERA_TO_WORLD)
             view.forceRender()
@@ -620,7 +620,7 @@ class ChangeDetection(object):
         depth_img_raw, _, _ = ds.getDepthImageAndPointCloud()
         depth_img_numpy = ds.getDepthImageAsNumpyArray()
 
-        print "depth min %.3f, depth max = %.3f" %(np.min(depth_img_numpy), np.max(depth_img_numpy))
+        print("depth min %.3f, depth max = %.3f" %(np.min(depth_img_numpy), np.max(depth_img_numpy)))
 
         # self.changeDetectionImageVisualizer.setImage(depth_img)
 
@@ -631,7 +631,7 @@ class ChangeDetection(object):
         f.Update()
         polyData = f.GetOutput()
 
-        print "polyData.GetNumberOfPoints() = ", polyData.GetNumberOfPoints()
+        print("polyData.GetNumberOfPoints() = ", polyData.GetNumberOfPoints())
         view = self.changeDetectionPointCloudView
         vis.updatePolyData(polyData, 'depth_im_to_pointcloud')
 

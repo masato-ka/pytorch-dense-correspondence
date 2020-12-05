@@ -323,8 +323,8 @@ class TSDFReconstruction(FusionReconstruction):
             foreground_reconstruction_filename =\
                 self.dataset_structure.foreground_fusion_reconstruction_file
             if not os.path.isfile(foreground_reconstruction_filename):
-                print "Foreground mesh file doesn't exist, falling back" \
-                " to cropping mesh"
+                print("Foreground mesh file doesn't exist, falling back" \
+                " to cropping mesh")
                 self.crop_poly_data()
             else:
                 self.poly_data = ioUtils.readPolyData(foreground_reconstruction_filename)
@@ -341,7 +341,7 @@ class TSDFReconstruction(FusionReconstruction):
         :return: list(int)
         :rtype:
         """
-        return self.kinematics_pose_data.pose_dict.keys()
+        return list(self.kinematics_pose_data.pose_dict.keys())
 
     def get_camera_to_world(self, idx):
         return self.kinematics_pose_data.get_camera_pose(idx)
@@ -384,7 +384,7 @@ class TSDFReconstruction(FusionReconstruction):
             name = ""
 
         if config is None:
-            print "no config passed in, loading default"
+            print("no config passed in, loading default")
             config = FusionReconstruction.load_default_config()
 
         pose_data_filename = os.path.join(data_folder, 'images', 'pose_data.yaml')
